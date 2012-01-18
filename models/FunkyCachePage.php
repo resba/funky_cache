@@ -10,6 +10,8 @@
  *
  * Project home:
  *   http://www.appelsiini.net/projects/funky_cache
+ * @package Plugins
+ * @subpackage funky_cache
  *
  */
 

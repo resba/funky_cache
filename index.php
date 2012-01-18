@@ -4,6 +4,7 @@
  * Funky Cache - Frog CMS caching plugin
  *
  * Copyright (c) 2008-2009 Mika Tuupola
+ * Modified by Matthew Sowden for WolfCMS
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -11,6 +12,8 @@
  * Project home:
  *   http://www.appelsiini.net/projects/funky_cache
  *
+ * @package Plugins
+ * @subpackage funky_cache
  */
  
 require_once 'models/FunkyCachePage.php';
@@ -19,20 +22,19 @@ Plugin::setInfos(array(
     'id'          => 'funky_cache',
     'title'       => 'Funky Cache', 
     'description' => 'Enables funky caching which makes your site ultra fast.', 
-    'version'     => '0.3.6-dev', 
+    'version'     => '0.4.0-devwolf', 
     'license'     => 'MIT',
-    'author'      => 'Mika Tuupola',
-    'require_frog_version' => '0.9.3',
-    'update_url'  => 'http://www.appelsiini.net/download/frog-plugins.xml',
-    'website'     => 'http://www.appelsiini.net/'
+    'author'      => 'Matthew Sowden (Original: Mika Tuupola)',
+    'update_url'  => 'http://www.resbah.com/check/wolfplugins.xml',
+    'require_wolf_version' => '0.7.5',
+    'website'     => 'http://www.resbah.com/'
 ));
 
 /* Stuff for backend. */
-if ('/admin/index.php' == $_SERVER['PHP_SELF']) {
     
     AutoLoader::addFolder(dirname(__FILE__) . '/lib');
     
-    Plugin::addController('funky_cache', 'Cache');
+	Plugin::addController('funky_cache', 'Cache', 'administrator', false);
     
     #Observer::observe('page_edit_after_save',   'funky_cache_delete_one');
     Observer::observe('page_edit_after_save',   'funky_cache_delete_all');
@@ -79,7 +81,7 @@ if ('/admin/index.php' == $_SERVER['PHP_SELF']) {
           </p>';
     }
         
-} else {
+
 /* Stuff for frontend. */    
 
     global $__FROG_CONN__;
@@ -118,7 +120,6 @@ if ('/admin/index.php' == $_SERVER['PHP_SELF']) {
             $cache->save();            
         }
     }
-}
 
 function funky_cache_suffix() {
     return Setting::get('funky_cache_suffix');

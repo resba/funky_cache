@@ -11,13 +11,18 @@
  * Project home:
  *   http://www.appelsiini.net/projects/funky_cache
  *
+ * @package Plugins
+ * @subpackage funky_cache
+ *
+ * @author Matthew Sowden
+ * @copyright Matthew Sowden, 2012
+ * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
  
 /* Prevent direct access. */
 if (!defined("FRAMEWORK_STARTING_MICROTIME")) {
     die("All your base are belong to us!");
 }
- 
 $PDO = Record::getConnection();
 
 $table = TABLE_PREFIX . "setting";
