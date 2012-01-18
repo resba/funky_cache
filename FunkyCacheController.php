@@ -59,14 +59,13 @@ class FunkyCacheController extends PluginController
     }
     
     function settings() {
-		/*
+		
         $this->display('funky_cache/views/settings', array(
 			'funky_cache_by_default' => Setting::get('funky_cache_by_default'),
 			'funky_cache_suffix'     => Setting::get('funky_cache_suffix'),
 			'funky_cache_folder'     => Setting::get('funky_cache_folder')
 		));
-		*/
-		$this->display('funky_cache/views/settings', Plugin::getAllSettings('funky_cache'));
+		
     }
     
 	function save() {

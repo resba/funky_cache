@@ -50,7 +50,7 @@ class FunkyCachePage extends Record
         /* If deep link create directories when needed. */
         $dir = '';
         foreach($parts as $part) {
-            if(!is_dir($dir .= "/$part")) {
+            if(!is_dir($dir .= "/".$part)) {
                 mkdir($dir);
             }
         }

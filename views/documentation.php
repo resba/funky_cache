@@ -18,14 +18,13 @@ DirectoryIndex index<?php print funky_cache_suffix() ?> index.php
 
 &lt;IfModule mod_rewrite.c&gt;
     RewriteEngine On
-    RewriteBase /
+    RewriteBase <?php print URI_PUBLIC; ?>
 
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-l
-    # Administration URL rewriting.
-    RewriteRule ^admin(.*)$ admin/index.php?$1 [L,QSA]
-
+	# Rules to allow install sequence to test for mod_rewrite support
+    RewriteRule ^wolf/install/index.html$ wolf/install/index.php?rewrite=1 [L,QSA]
+    RewriteRule ^wolf/install/index.php$ wolf/install/index.php?rewrite=1 [L,QSA]
+    RewriteRule ^wolf/install/$ wolf/install/index.php?rewrite=1 [L,QSA]
+	
     # Rewrite index to check for static.
     RewriteCond  %{DOCUMENT_ROOT}<?php print funky_cache_folder() ?>index<?php print funky_cache_suffix() ?> -f
     RewriteRule ^$ <?php print funky_cache_folder() ?>index<?php print funky_cache_suffix() ?> [L,QSA]
@@ -39,9 +38,9 @@ DirectoryIndex index<?php print funky_cache_suffix() ?> index.php
     RewriteRule ^(.*)$ <?php print funky_cache_folder() ?>$1 [L,QSA]
 <?php endif; ?>
         
-    RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_URI} !-f
-    RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_URI} !-d
-    RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_URI} !-l
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
     # Main URL rewriting.
     RewriteRule ^(.*)$ index.php?WOLFPAGE=$1 [L,QSA]
 &lt;/IfModule&gt;

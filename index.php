@@ -31,7 +31,6 @@ Plugin::setInfos(array(
 ));
 
 /* Stuff for backend. */
-    
     AutoLoader::addFolder(dirname(__FILE__) . '/lib');
     
 	Plugin::addController('funky_cache', 'Cache', 'administrator', false);
@@ -81,7 +80,7 @@ Plugin::setInfos(array(
           </p>';
     }
         
-
+     if( strstr("/".CURRENT_URI,"admin/")==FALSE ){
 /* Stuff for frontend. */    
 
     global $__FROG_CONN__;
@@ -100,15 +99,15 @@ Plugin::setInfos(array(
         if ($page->funky_cache_enabled) {
             funky_cache_suffix();
             #$data['url'] = "/" . $_SERVER['QUERY_STRING'];
-            $data['url'] = "/" . CURRENT_URI . URL_SUFFIX;
+            $data['url'] = "/" . CURRENT_URI;
             
             /* Frontpage should become index.html */
-            if ('/' . URL_SUFFIX == $data['url']) {
+            if ('/' . URL_SUFFIX == $data['url'] . URL_SUFFIX) {
                 $data['url'] = '/index' . funky_cache_suffix(); 
             /* If Frog suffix is not used, use suffix from cache settings */
             /* For example /articles becomes /articles.html */
-            } elseif (!strlen(URL_SUFFIX)) {
-                $data['url'] .= funky_cache_suffix();
+            } else {
+                $data['url'] = '/'. CURRENT_URI . funky_cache_suffix();
             }
             $data['url'] = funky_cache_folder() . $data['url'];
             $data['url'] = preg_replace('#//#', '/', $data['url']);
@@ -120,7 +119,7 @@ Plugin::setInfos(array(
             $cache->save();            
         }
     }
-
+}
 function funky_cache_suffix() {
     return Setting::get('funky_cache_suffix');
 }
